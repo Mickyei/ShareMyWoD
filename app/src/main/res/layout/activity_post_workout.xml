@@ -18,13 +18,14 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/exerciseList"
-        android:layout_below="@id/nameField"></ListView>
+        android:id="@android:id/list"
+        android:layout_below="@id/nameField"
+        android:layout_marginTop="15dp"></ListView>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/exerciseList"
+        android:layout_below="@android:id/list"
         android:id="@+id/addRowButton"
         android:text="Add exercise"
         android:onClick="addExercise"
@@ -37,7 +38,6 @@
         android:layout_height="wrap_content"
         android:hint="Additional information"
         android:layout_below="@+id/addRowButton"
-
         android:paddingTop="25dp"
         android:id="@+id/info"/>
 
@@ -47,6 +47,7 @@
         android:layout_below="@+id/info"
         android:layout_centerHorizontal="true"
         android:text="Share workout"
+        android:onClick="shareWorkout"
         android:layout_marginTop="20dp"
         android:textAllCaps="false"/>
 
