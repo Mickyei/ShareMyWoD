@@ -164,7 +164,8 @@ public class PostWorkout extends ListActivity {
 
         @Override
         protected void onPostExecute(Integer result) {
-            super.onPostExecute(result);if(result == 200) {
+            super.onPostExecute(result);
+            if(result == 200) {
                 Toast.makeText(PostWorkout.this, "Workout shared",
                         Toast.LENGTH_LONG).show();
             }else {
