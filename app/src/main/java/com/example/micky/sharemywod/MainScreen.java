@@ -17,4 +17,9 @@ public class MainScreen extends AppCompatActivity {
         Intent i = new Intent(this, PostWorkout.class);
         startActivity(i);
     }
+
+    public void viewWorkouts(View v) {
+        Intent i = new Intent(this, ViewWorkouts.class);
+        startActivity(i);
+    }
 }
