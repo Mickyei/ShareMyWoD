@@ -19,7 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".PostWorkout" />
-        <activity android:name=".ViewWorkouts"></activity>
+        <activity android:name=".ViewWorkouts" />
+        <activity android:name=".WorkoutInfo" />
+        <activity android:name=".SingleWorkout"></activity>
     </application>
 
 </manifest>

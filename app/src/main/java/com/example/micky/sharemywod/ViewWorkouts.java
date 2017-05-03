@@ -1,9 +1,12 @@
 package com.example.micky.sharemywod;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -35,6 +38,15 @@ public class ViewWorkouts extends ListActivity {
         listView = getListView();
         listView.setAdapter(adapter);
         new GetWorkoutsTask().execute();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(getApplicationContext(), SingleWorkout.class);
+                i.putExtra("workout", workouts.get(position).toString());
+                startActivity(i);
+            }
+        });
 
     }
 

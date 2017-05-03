@@ -53,13 +53,9 @@ public class PostWorkout extends ListActivity {
 
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        // Get the layout inflater
         LayoutInflater inflater = this.getLayoutInflater();
 
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
         builder.setView(inflater.inflate(R.layout.add_exercise, null))
-                // Add action buttons
                 .setPositiveButton("Add exercise", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
