@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.micky.sharemywod.PostWorkout">
+    tools:context="com.example.micky.sharemywod.com.sharemywod.micky.PostWorkout">
 
     <EditText
         android:layout_width="match_parent"
@@ -14,12 +14,20 @@
         android:id="@+id/nameField"
         />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Touch exercise to remove it"
+        android:layout_below="@id/nameField"
+        android:id="@+id/listInfo"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"/>
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@android:id/list"
-        android:layout_below="@id/nameField"
+        android:layout_below="@id/listInfo"
         android:layout_marginTop="15dp"></ListView>
 
     <Button

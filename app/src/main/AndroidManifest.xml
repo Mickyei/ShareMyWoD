@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.micky.sharemywod">
+    package="com.sharemywod.micky">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,17 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainScreen">
+        <activity android:name="com.sharemywod.micky.MainScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PostWorkout" />
-        <activity android:name=".ViewWorkouts" />
-        <activity android:name=".WorkoutInfo" />
-        <activity android:name=".SingleWorkout"></activity>
+        <activity android:name="com.sharemywod.micky.PostWorkout"
+            android:windowSoftInputMode="adjustPan"
+            android:label="Share your WoD"/>
+        <activity android:name="com.sharemywod.micky.ViewWorkouts"
+            android:label="View workouts"/>
+        <activity android:name="com.sharemywod.micky.SingleWorkout"></activity>
     </application>
 
 </manifest>
+
