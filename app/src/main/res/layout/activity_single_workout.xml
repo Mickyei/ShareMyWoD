@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.micky.sharemywod.com.sharemywod.micky.SingleWorkout">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/singleWorkoutName"
+        android:paddingTop="25dp"
+        android:text="Placeholder for name"
+        android:textSize="30sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/singleWorkoutName"
+        android:id="@+id/singleWorkoutDesc"
+        android:paddingTop="25dp"
+        />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@android:id/list"
+        android:layout_below="@id/singleWorkoutDesc"
+        android:layout_marginTop="15dp"
+        android:clickable="false"></ListView>
+
+
+</RelativeLayout>

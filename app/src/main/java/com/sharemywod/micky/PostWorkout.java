@@ -1,39 +1,65 @@
-package com.example.micky.sharemywod;
+package com.sharemywod.micky;
 
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TableRow;
 import android.widget.Toast;
+
+import com.sharemywod.micky.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+
+/**
+ * Renders a view that lets user post a workout to backend.
+ *
+ * @author      Micky Kyei
+ * @version     4.0
+ * @since       2.0
+ */
 public class PostWorkout extends ListActivity {
 
+    /**
+     * Contains the exercises in JSON.
+     * These will be sent to the backend.
+     */
     ArrayList<JSONObject> exercises;
+
+    /**
+     * Contains the exercises in String.
+     * These will be shown in the app.
+     */
+    ArrayList<String> parsedExercises;
+
+    /**
+     * The ListView for the exercises.
+     */
     ListView listView;
+
+    /**
+     * Adapter for the ListView
+     */
     ArrayAdapter adapter;
 
     @Override
@@ -41,25 +67,35 @@ public class PostWorkout extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_workout);
         exercises = new ArrayList<>();
+        parsedExercises = new ArrayList<>();
 
-        adapter = new ArrayAdapter<JSONObject>(this,R.layout.adaptertext, exercises);
+        adapter = new ArrayAdapter<String>(this,R.layout.adaptertext, parsedExercises);
         listView = getListView();
         listView.setAdapter(adapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                exercises.remove(position);
+                parsedExercises.remove(position);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
     }
 
+
+    /**
+     * Adds an exercise to parsedExercises and exercises.
+     * Also notifies ArrayAdapter of the changes.
+     * @param v current View
+     */
     public void addExercise(View v) {
 
-
-
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        // Get the layout inflater
         LayoutInflater inflater = this.getLayoutInflater();
 
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
         builder.setView(inflater.inflate(R.layout.add_exercise, null))
-                // Add action buttons
                 .setPositiveButton("Add exercise", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
@@ -89,6 +125,10 @@ public class PostWorkout extends ListActivity {
                             newExercise.put("value", rButton.getText());
 
                             System.out.println(newExercise);
+                            parsedExercises.add("Exercise: " + newExercise.get("name") + "\n" +
+                                    "Sets: " + newExercise.get("sets") + " of " + newExercise.get("amount")
+                                    + " " + newExercise.get("value")  + "\n" +
+                                    newExercise.get("additionalInfo") );
                             exercises.add(newExercise);
                             adapter.notifyDataSetChanged();
                         } catch (JSONException e) {
@@ -107,6 +147,12 @@ public class PostWorkout extends ListActivity {
 
     }
 
+    /**
+     * Creates a JSONObject and shares it to the backend.
+     * Uses a ASyncTask.
+     *
+     * @param v current View
+     */
     public void shareWorkout(View v) {
 
         JSONObject workout = new JSONObject();
@@ -129,6 +175,9 @@ public class PostWorkout extends ListActivity {
     }
 
 
+    /**
+     * ASyncTask that connects to backend and POSTs a JSONObject
+     */
     public class ShareTask extends AsyncTask<JSONObject, Void,Integer> {
 
         @Override
@@ -137,7 +186,7 @@ public class PostWorkout extends ListActivity {
             int result = 400;
             System.out.println("doInBackGround(): " + params[0].toString());
             try {
-                URL url1 = new URL("http://10.0.2.2:8080/workouts");
+                URL url1 = new URL("http://178.62.102.13:8080/workouts/");
 
                 HttpURLConnection urlConnection = (HttpURLConnection) url1.openConnection();
                 urlConnection.setRequestProperty("Content-Type", "application/json");
@@ -164,7 +213,8 @@ public class PostWorkout extends ListActivity {
 
         @Override
         protected void onPostExecute(Integer result) {
-            super.onPostExecute(result);if(result == 200) {
+            super.onPostExecute(result);
+            if(result == 200) {
                 Toast.makeText(PostWorkout.this, "Workout shared",
                         Toast.LENGTH_LONG).show();
             }else {
@@ -173,11 +223,14 @@ public class PostWorkout extends ListActivity {
             }
 
             exercises.clear();
+            parsedExercises.clear();
             adapter.notifyDataSetChanged();
             EditText name = (EditText) findViewById(R.id.nameField);
             EditText description = (EditText) findViewById(R.id.info);
             name.setText("");
             description.setText("");
+            Intent back = new Intent(getApplicationContext() ,MainScreen.class);
+            startActivity(back);
 
         }
 
